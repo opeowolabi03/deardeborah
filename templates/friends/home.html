@@ -3,68 +3,163 @@
 {% block title %}Home | Dear Deborah{% endblock %}
 
 {% block content %}
-<section>
-    <h2>Home Dashboard</h2>
-    <p>This is your friendship archive homepage.</p>
+<section class="home-hero">
+    <div class="hero-text">
+        <p class="eyebrow">Friendship archive</p>
+        <h2>Dear Deborah</h2>
+        <p class="hero-subtitle">
+            Your personal scrapbook for friends, memories, birthdays, little stories,
+            favourite things, and all the emotional admin humans keep creating.
+        </p>
 
-    <ul>
-        <li>Total friends: {{ friend_count }}</li>
-        <li>Inner Circle friends: {{ inner_circle_count }}</li>
-        <li>Total memories: {{ memory_count }}</li>
-        <li>Total photos: {{ photo_count }}</li>
-    </ul>
+        <div class="hero-actions">
+            <a class="button-primary" href="{% url 'friends:add_friend' %}">Add a Friend</a>
+            <a class="button-secondary" href="{% url 'friends:memories' %}">View Memories</a>
+        </div>
+    </div>
+
+    <div class="hero-card">
+        <span class="hero-card-icon">💌</span>
+        <h3>Today’s Archive</h3>
+        <p>
+            {{ friend_count }} friends, {{ memory_count }} memories,
+            and {{ photo_count }} photos saved so far.
+        </p>
+    </div>
 </section>
 
-<section>
-    <h2>Recently Added Friends</h2>
+<section class="stats-grid">
+    <article class="stat-card">
+        <span class="stat-icon">👥</span>
+        <p class="stat-number">{{ friend_count }}</p>
+        <p class="stat-label">Total Friends</p>
+    </article>
 
-    {% if recent_friends %}
-        <ul>
-            {% for friend in recent_friends %}
-                <li>
-                    <a href="{{ friend.get_absolute_url }}">{{ friend.display_name }}</a>
-                    - added {{ friend.created_at|date:"d M Y" }}
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No friends added yet.</p>
-    {% endif %}
+    <article class="stat-card">
+        <span class="stat-icon">💗</span>
+        <p class="stat-number">{{ inner_circle_count }}</p>
+        <p class="stat-label">Inner Circle</p>
+    </article>
+
+    <article class="stat-card">
+        <span class="stat-icon">📖</span>
+        <p class="stat-number">{{ memory_count }}</p>
+        <p class="stat-label">Memories</p>
+    </article>
+
+    <article class="stat-card">
+        <span class="stat-icon">🖼️</span>
+        <p class="stat-number">{{ photo_count }}</p>
+        <p class="stat-label">Photos</p>
+    </article>
 </section>
 
-<section>
-    <h2>Upcoming Birthdays</h2>
+<div class="home-grid">
+    <section class="dashboard-panel">
+        <div class="panel-heading">
+            <div>
+                <p class="eyebrow">New arrivals</p>
+                <h3>Recently Added Friends</h3>
+            </div>
+            <a href="{% url 'friends:friend_directory' %}">View all</a>
+        </div>
 
-    {% if upcoming_birthdays %}
-        <ul>
-            {% for friend in upcoming_birthdays %}
-                <li>
-                    <a href="{{ friend.get_absolute_url }}">{{ friend.display_name }}</a>
-                    - {{ friend.days_until_birthday }} days away
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No birthdays added yet.</p>
-    {% endif %}
-</section>
+        {% if recent_friends %}
+            <div class="friend-list">
+                {% for friend in recent_friends %}
+                    <article class="mini-card">
+                        <div class="mini-avatar">
+                            {% if friend.profile_picture %}
+                                <img src="{{ friend.profile_picture.url }}" alt="{{ friend.display_name }}">
+                            {% else %}
+                                <span>{{ friend.first_name|first }}</span>
+                            {% endif %}
+                        </div>
 
-<section>
-    <h2>Favourite Memories</h2>
+                        <div>
+                            <h4>
+                                <a href="{{ friend.get_absolute_url }}">{{ friend.display_name }}</a>
+                            </h4>
+                            <p>Added {{ friend.created_at|date:"d M Y" }}</p>
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="empty-state">No friends added yet. The archive is waiting, dramatically.</p>
+        {% endif %}
+    </section>
+
+    <section class="dashboard-panel">
+        <div class="panel-heading">
+            <div>
+                <p class="eyebrow">Upcoming</p>
+                <h3>Birthdays</h3>
+            </div>
+            <a href="{% url 'friends:birthday_calendar' %}">Calendar</a>
+        </div>
+
+        {% if upcoming_birthdays %}
+            <div class="birthday-list">
+                {% for friend in upcoming_birthdays %}
+                    <article class="birthday-card">
+                        <div class="birthday-badge">
+                            <strong>{{ friend.birthday|date:"d" }}</strong>
+                            <span>{{ friend.birthday|date:"M" }}</span>
+                        </div>
+
+                        <div>
+                            <h4>
+                                <a href="{{ friend.get_absolute_url }}">{{ friend.display_name }}</a>
+                            </h4>
+
+                            {% if friend.days_until_birthday == 0 %}
+                                <p>Birthday is today 🎂</p>
+                            {% else %}
+                                <p>{{ friend.days_until_birthday }} days away</p>
+                            {% endif %}
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="empty-state">No birthdays added yet. Suspiciously immortal behaviour.</p>
+        {% endif %}
+    </section>
+</div>
+
+<section class="dashboard-panel full-width-panel">
+    <div class="panel-heading">
+        <div>
+            <p class="eyebrow">Saved moments</p>
+            <h3>Favourite Memories</h3>
+        </div>
+        <a href="{% url 'friends:memories' %}">View memories</a>
+    </div>
 
     {% if favourite_memories %}
-        <ul>
+        <div class="memory-grid">
             {% for memory in favourite_memories %}
-                <li>
-                    <a href="{{ memory.get_absolute_url }}">{{ memory.title }}</a>
+                <article class="memory-card">
+                    <span class="memory-icon">✨</span>
+                    <h4>
+                        <a href="{{ memory.get_absolute_url }}">{{ memory.title }}</a>
+                    </h4>
+
                     {% if memory.location_name %}
-                        - {{ memory.location_name }}
+                        <p>{{ memory.location_name }}</p>
+                    {% else %}
+                        <p>No location added</p>
                     {% endif %}
-                </li>
+
+                    {% if memory.date %}
+                        <small>{{ memory.date|date:"d M Y" }}</small>
+                    {% endif %}
+                </article>
             {% endfor %}
-        </ul>
+        </div>
     {% else %}
-        <p>No favourite memories yet.</p>
+        <p class="empty-state">No favourite memories yet. Add one in Admin and tick favourite.</p>
     {% endif %}
 </section>
 {% endblock %}
