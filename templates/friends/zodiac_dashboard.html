@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Zodiac Dashboard | Dear Deborah{% endblock %}
+
+{% block content %}
+<h2>Zodiac Dashboard</h2>
+
+<p>Most common sign: {{ most_common }}</p>
+
+{% if zodiac_counts %}
+    <ul>
+        {% for row in zodiac_counts %}
+            <li>{{ row.zodiac }}: {{ row.total }}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No zodiac data added yet.</p>
+{% endif %}
+{% endblock %}

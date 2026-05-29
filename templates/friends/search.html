@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Search | Dear Deborah{% endblock %}
+
+{% block content %}
+<h2>Search</h2>
+
+<form method="get">
+    {{ form.as_p }}
+    <button type="submit">Search</button>
+</form>
+
+{% if query %}
+    <h3>Friend Results</h3>
+
+    {% if friend_results %}
+        <ul>
+            {% for friend in friend_results %}
+                <li>
+                    <a href="{{ friend.get_absolute_url }}">{{ friend.display_name }}</a>
+                    - {{ friend.get_tier_display }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No friend results.</p>
+    {% endif %}
+
+    <h3>Memory Results</h3>
+
+    {% if memory_results %}
+        <ul>
+            {% for memory in memory_results %}
+                <li>
+                    <a href="{{ memory.get_absolute_url }}">{{ memory.title }}</a>
+                    {% if memory.location_name %}
+                        - {{ memory.location_name }}
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No memory results.</p>
+    {% endif %}
+{% else %}
+    <p>Search by name, colour, MBTI, zodiac, hobby, food, school, work, or memory.</p>
+{% endif %}
+{% endblock %}

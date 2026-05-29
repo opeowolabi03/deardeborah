@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}Home | Dear Deborah{% endblock %}
+
+{% block content %}
+<section>
+    <h2>Home Dashboard</h2>
+    <p>This is your friendship archive homepage.</p>
+
+    <ul>
+        <li>Total friends: {{ friend_count }}</li>
+        <li>Inner Circle friends: {{ inner_circle_count }}</li>
+        <li>Total memories: {{ memory_count }}</li>
+        <li>Total photos: {{ photo_count }}</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Recently Added Friends</h2>
+
+    {% if recent_friends %}
+        <ul>
+            {% for friend in recent_friends %}
+                <li>
+                    <a href="{{ friend.get_absolute_url }}">{{ friend.display_name }}</a>
+                    - added {{ friend.created_at|date:"d M Y" }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No friends added yet.</p>
+    {% endif %}
+</section>
+
+<section>
+    <h2>Upcoming Birthdays</h2>
+
+    {% if upcoming_birthdays %}
+        <ul>
+            {% for friend in upcoming_birthdays %}
+                <li>
+                    <a href="{{ friend.get_absolute_url }}">{{ friend.display_name }}</a>
+                    - {{ friend.days_until_birthday }} days away
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No birthdays added yet.</p>
+    {% endif %}
+</section>
+
+<section>
+    <h2>Favourite Memories</h2>
+
+    {% if favourite_memories %}
+        <ul>
+            {% for memory in favourite_memories %}
+                <li>
+                    <a href="{{ memory.get_absolute_url }}">{{ memory.title }}</a>
+                    {% if memory.location_name %}
+                        - {{ memory.location_name }}
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No favourite memories yet.</p>
+    {% endif %}
+</section>
+{% endblock %}

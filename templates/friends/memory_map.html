@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Memory Map | Dear Deborah{% endblock %}
+
+{% block content %}
+<h2>Memory Map</h2>
+
+<p>This is the memory map list version. Later, this can become clickable pins. One horror at a time.</p>
+
+{% if memories %}
+    {% for memory in memories %}
+        <article>
+            <h3>
+                📍 <a href="{{ memory.get_absolute_url }}">{{ memory.title }}</a>
+            </h3>
+
+            <p>Location: {{ memory.location_name }}</p>
+
+            {% if memory.latitude and memory.longitude %}
+                <p>Coordinates: {{ memory.latitude }}, {{ memory.longitude }}</p>
+            {% else %}
+                <p>Coordinates: Not added yet</p>
+            {% endif %}
+
+            <p>
+                Friends:
+                {% for friend in memory.friends.all %}
+                    <a href="{{ friend.get_absolute_url }}">{{ friend.display_name }}</a>{% if not forloop.last %}, {% endif %}
+                {% empty %}
+                    No friends linked.
+                {% endfor %}
+            </p>
+        </article>
+
+        <hr>
+    {% endfor %}
+{% else %}
+    <p>No map memories added yet. Add memories with a location name in Admin.</p>
+{% endif %}
+{% endblock %}

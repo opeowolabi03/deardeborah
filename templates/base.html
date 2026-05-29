@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}Dear Deborah{% endblock %}</title>
+</head>
+
+<body>
+    <header>
+        <h1>Dear Deborah</h1>
+        <p>A friendship archive, because apparently even memories need a database now.</p>
+
+        <nav>
+            <a href="{% url 'friends:home' %}">Home</a> |
+            <a href="{% url 'friends:friend_directory' %}">Friends</a> |
+            <a href="{% url 'friends:add_friend' %}">Add Friend</a> |
+            <a href="{% url 'friends:memories' %}">Memories</a> |
+            <a href="{% url 'friends:memory_map' %}">Memory Map</a> |
+            <a href="{% url 'friends:birthday_calendar' %}">Birthdays</a> |
+            <a href="{% url 'friends:zodiac_dashboard' %}">Zodiac</a> |
+            <a href="{% url 'friends:mbti_dashboard' %}">MBTI</a> |
+            <a href="{% url 'friends:statistics' %}">Statistics</a> |
+            <a href="{% url 'friends:search' %}">Search</a> |
+            <a href="/admin/">Admin</a>
+        </nav>
+    </header>
+
+    <hr>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+</body>
+</html>

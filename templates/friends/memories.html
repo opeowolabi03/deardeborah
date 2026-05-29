@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Memories | Dear Deborah{% endblock %}
+
+{% block content %}
+<h2>Memories</h2>
+
+{% if memories %}
+    {% for memory in memories %}
+        <article>
+            <h3>
+                <a href="{{ memory.get_absolute_url }}">{{ memory.title }}</a>
+            </h3>
+
+            {% if memory.date %}
+                <p>Date: {{ memory.date|date:"d M Y" }}</p>
+            {% endif %}
+
+            {% if memory.location_name %}
+                <p>Location: {{ memory.location_name }}</p>
+            {% endif %}
+
+            <p>
+                Friends:
+                {% for friend in memory.friends.all %}
+                    <a href="{{ friend.get_absolute_url }}">{{ friend.display_name }}</a>{% if not forloop.last %}, {% endif %}
+                {% empty %}
+                    No friends linked.
+                {% endfor %}
+            </p>
+        </article>
+
+        <hr>
+    {% endfor %}
+{% else %}
+    <p>No memories added yet.</p>
+{% endif %}
+{% endblock %}

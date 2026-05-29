@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}{{ memory.title }} | Dear Deborah{% endblock %}
+
+{% block content %}
+<article>
+    <h2>{{ memory.title }}</h2>
+
+    <ul>
+        <li>Date: {{ memory.date|default:"Not added" }}</li>
+        <li>Location: {{ memory.location_name|default:"Not added" }}</li>
+        <li>Latitude: {{ memory.latitude|default:"Not added" }}</li>
+        <li>Longitude: {{ memory.longitude|default:"Not added" }}</li>
+        <li>Mood: {{ memory.mood|default:"Not added" }}</li>
+        <li>Tags: {{ memory.tags|default:"Not added" }}</li>
+        <li>Favourite memory: {% if memory.is_favourite %}Yes{% else %}No{% endif %}</li>
+    </ul>
+
+    <h3>Description</h3>
+    <p>{{ memory.description }}</p>
+
+    <h3>Friends Involved</h3>
+
+    {% if memory.friends.all %}
+        <ul>
+            {% for friend in memory.friends.all %}
+                <li>
+                    <a href="{{ friend.get_absolute_url }}">{{ friend.display_name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No friends linked.</p>
+    {% endif %}
+
+    <h3>Photos</h3>
+
+    {% if memory.photos.all %}
+        {% for photo in memory.photos.all %}
+            <figure>
+                <img src="{{ photo.image.url }}" alt="{{ photo.caption|default:'Memory photo' }}" width="180">
+                {% if photo.caption %}
+                    <figcaption>{{ photo.caption }}</figcaption>
+                {% endif %}
+            </figure>
+        {% endfor %}
+    {% else %}
+        <p>No photos linked.</p>
+    {% endif %}
+</article>
+{% endblock %}

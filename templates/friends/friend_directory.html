@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}Friend Directory | Dear Deborah{% endblock %}
+
+{% block content %}
+<h2>Friend Directory</h2>
+
+<form method="get">
+    <p>
+        <label for="q">Search:</label>
+        <input id="q" type="text" name="q" value="{{ query }}">
+    </p>
+
+    <p>
+        <label for="tier">Tier:</label>
+        <select id="tier" name="tier">
+            <option value="">All tiers</option>
+
+            {% for value, label in tier_choices %}
+                <option value="{{ value }}" {% if selected_tier == value %}selected{% endif %}>
+                    {{ label }}
+                </option>
+            {% endfor %}
+        </select>
+    </p>
+
+    <p>
+        <label for="connection_group">Connection group:</label>
+        <select id="connection_group" name="connection_group">
+            <option value="">All groups</option>
+
+            {% for group in connection_groups %}
+                <option value="{{ group.id }}" {% if selected_connection_group == group.id|stringformat:"s" %}selected{% endif %}>
+                    {{ group.name }}
+                </option>
+            {% endfor %}
+        </select>
+    </p>
+
+    <button type="submit">Filter</button>
+    <a href="{% url 'friends:friend_directory' %}">Clear</a>
+</form>
+
+<h3>Results</h3>
+
+{% if friends %}
+    <div>
+        {% for friend in friends %}
+            <article>
+                <h3>
+                    <a href="{{ friend.get_absolute_url }}">{{ friend.display_name }}</a>
+                </h3>
+
+                <p>Tier: {{ friend.get_tier_display }}</p>
+
+                {% if friend.connection_group %}
+                    <p>Connection: {{ friend.connection_group.name }}</p>
+                {% else %}
+                    <p>Connection: Not added</p>
+                {% endif %}
+
+                {% if friend.mbti %}
+                    <p>MBTI: {{ friend.mbti }}</p>
+                {% endif %}
+
+                {% if friend.zodiac %}
+                    <p>Zodiac: {{ friend.zodiac }}</p>
+                {% endif %}
+            </article>
+
+            <hr>
+        {% endfor %}
+    </div>
+{% else %}
+    <p>No friends found.</p>
+{% endif %}
+{% endblock %}

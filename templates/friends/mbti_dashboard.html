@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}MBTI Dashboard | Dear Deborah{% endblock %}
+
+{% block content %}
+<h2>MBTI Dashboard</h2>
+
+<p>Most common MBTI type: {{ most_common }}</p>
+
+{% if mbti_counts %}
+    <ul>
+        {% for row in mbti_counts %}
+            <li>{{ row.mbti }}: {{ row.total }}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No MBTI data added yet.</p>
+{% endif %}
+{% endblock %}

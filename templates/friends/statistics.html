@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}Statistics | Dear Deborah{% endblock %}
+
+{% block content %}
+<h2>Statistics</h2>
+
+<section>
+    <h3>Friendship Tiers</h3>
+
+    {% if tier_counts %}
+        <ul>
+            {% for row in tier_counts %}
+                <li>{{ row.label }}: {{ row.total }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No tier data.</p>
+    {% endif %}
+</section>
+
+<section>
+    <h3>Connection Groups</h3>
+
+    {% if connection_counts %}
+        <ul>
+            {% for row in connection_counts %}
+                <li>{{ row.connection_group__name|default:"No group" }}: {{ row.total }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No connection group data.</p>
+    {% endif %}
+</section>
+
+<section>
+    <h3>Favourite Colours</h3>
+
+    {% if colour_counts %}
+        <ul>
+            {% for row in colour_counts %}
+                <li>{{ row.favourite_colour }}: {{ row.total }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No favourite colour data.</p>
+    {% endif %}
+</section>
+
+<section>
+    <h3>Favourite Seasons</h3>
+
+    {% if season_counts %}
+        <ul>
+            {% for row in season_counts %}
+                <li>{{ row.favourite_season }}: {{ row.total }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No favourite season data.</p>
+    {% endif %}
+</section>
+
+<section>
+    <h3>Morning vs Night</h3>
+
+    {% if morning_night_counts %}
+        <ul>
+            {% for row in morning_night_counts %}
+                <li>{{ row.label }}: {{ row.total }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No morning/night data.</p>
+    {% endif %}
+</section>
+{% endblock %}

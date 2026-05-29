@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}Birthday Calendar | Dear Deborah{% endblock %}
+
+{% block content %}
+<h2>Birthday Calendar</h2>
+
+<section>
+    <h3>Next Birthdays</h3>
+
+    {% if upcoming_birthdays %}
+        <ul>
+            {% for friend in upcoming_birthdays %}
+                <li>
+                    <a href="{{ friend.get_absolute_url }}">{{ friend.display_name }}</a>
+                    - {{ friend.days_until_birthday }} days away
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No upcoming birthdays.</p>
+    {% endif %}
+</section>
+
+<section>
+    <h3>Birthdays By Month</h3>
+
+    {% for month in months %}
+        <h4>{{ month.name }}</h4>
+
+        {% if month.friends %}
+            <ul>
+                {% for friend in month.friends %}
+                    <li>
+                        {{ friend.birthday.day }}:
+                        <a href="{{ friend.get_absolute_url }}">{{ friend.display_name }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No birthdays.</p>
+        {% endif %}
+    {% endfor %}
+</section>
+{% endblock %}

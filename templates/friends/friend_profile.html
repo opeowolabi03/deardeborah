@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block title %}{{ friend.display_name }} | Dear Deborah{% endblock %}
+
+{% block content %}
+<article>
+    <h2>{{ friend.display_name }}</h2>
+
+    {% if friend.profile_picture %}
+        <img src="{{ friend.profile_picture.url }}" alt="{{ friend.display_name }}" width="180">
+    {% endif %}
+
+    <h3>Basic Details</h3>
+
+    <ul>
+        <li>Tier: {{ friend.get_tier_display }}</li>
+
+        {% if friend.birthday %}
+            <li>Birthday: {{ friend.birthday|date:"d M Y" }}</li>
+            <li>Age: {{ friend.age }}</li>
+            <li>Days until birthday: {{ friend.days_until_birthday }}</li>
+        {% else %}
+            <li>Birthday: Not added</li>
+        {% endif %}
+
+        {% if friend.connection_group %}
+            <li>Connection group: {{ friend.connection_group.name }}</li>
+        {% else %}
+            <li>Connection group: Not added</li>
+        {% endif %}
+
+        <li>Favourite colour: {{ friend.favourite_colour|default:"Not added" }}</li>
+        <li>Favourite food: {{ friend.favourite_food|default:"Not added" }}</li>
+        <li>Favourite restaurant: {{ friend.favourite_restaurant|default:"Not added" }}</li>
+        <li>Favourite drink: {{ friend.favourite_alcoholic_drink|default:"Not added" }}</li>
+        <li>Favourite season: {{ friend.favourite_season|default:"Not added" }}</li>
+        <li>Morning or night: {{ friend.get_morning_or_night_display|default:"Not added" }}</li>
+        <li>MBTI: {{ friend.mbti|default:"Not added" }}</li>
+        <li>Zodiac: {{ friend.zodiac|default:"Not added" }}</li>
+        <li>Sports team: {{ friend.sports_team|default:"Not added" }}</li>
+    </ul>
+
+    <h3>How You Met</h3>
+    <p>{{ friend.how_we_met|default:"Not added" }}</p>
+
+    <h3>Hobbies</h3>
+    <p>{{ friend.hobbies|default:"Not added" }}</p>
+
+    <h3>Notes</h3>
+    <p>{{ friend.notes|default:"Not added" }}</p>
+
+    <h3>Extended Profile</h3>
+
+    {% if extended_profile %}
+        <ul>
+            <li>Favourite song: {{ extended_profile.favourite_song|default:"Not added" }}</li>
+            <li>Favourite movie: {{ extended_profile.favourite_movie|default:"Not added" }}</li>
+            <li>Favourite show: {{ extended_profile.favourite_show|default:"Not added" }}</li>
+            <li>Dream trip: {{ extended_profile.dream_trip|default:"Not added" }}</li>
+            <li>Gift ideas: {{ extended_profile.gift_ideas|default:"Not added" }}</li>
+            <li>Inside jokes: {{ extended_profile.inside_jokes|default:"Not added" }}</li>
+            <li>Friendship story: {{ extended_profile.friendship_story|default:"Not added" }}</li>
+            <li>Favourite memory: {{ extended_profile.favourite_memory|default:"Not added" }}</li>
+            <li>Private notes: {{ extended_profile.private_notes|default:"Not added" }}</li>
+        </ul>
+    {% else %}
+        <p>No extended profile added yet.</p>
+    {% endif %}
+
+    <h3>Memories</h3>
+
+    {% if memories %}
+        <ul>
+            {% for memory in memories %}
+                <li>
+                    <a href="{{ memory.get_absolute_url }}">{{ memory.title }}</a>
+                    {% if memory.location_name %}
+                        - {{ memory.location_name }}
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No memories linked yet.</p>
+    {% endif %}
+
+    <h3>Photos</h3>
+
+    {% if photos %}
+        {% for photo in photos %}
+            <figure>
+                <img src="{{ photo.image.url }}" alt="{{ photo.caption|default:'Friend photo' }}" width="180">
+                {% if photo.caption %}
+                    <figcaption>{{ photo.caption }}</figcaption>
+                {% endif %}
+            </figure>
+        {% endfor %}
+    {% else %}
+        <p>No photos linked yet.</p>
+    {% endif %}
+</article>
+{% endblock %}
