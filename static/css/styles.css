@@ -2173,3 +2173,634 @@ figcaption {
         border-bottom: 1px solid var(--border);
     }
 }
+/* Part W — Memories, Memory Detail, and Memory Map styling */
+
+/* Memories list page */
+
+.memories-hero,
+.map-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 230px;
+    align-items: center;
+    gap: 24px;
+    padding: 34px;
+    border-radius: 30px;
+    border: 1px solid var(--border);
+    background:
+        radial-gradient(circle at top right, rgba(216, 91, 130, 0.16), transparent 34%),
+        rgba(255, 255, 255, 0.82);
+    box-shadow: var(--shadow);
+    margin-bottom: 22px;
+}
+
+.memories-hero h2,
+.map-hero h2 {
+    margin: 0 0 10px;
+    color: var(--plum);
+    font-size: clamp(3.2rem, 7vw, 5.6rem);
+    line-height: 0.95;
+    letter-spacing: -0.06em;
+}
+
+.memories-hero p,
+.map-hero p {
+    max-width: 660px;
+    color: var(--muted);
+    font-weight: 700;
+}
+
+.memories-hero-note,
+.map-sticker {
+    position: relative;
+    min-height: 130px;
+    padding: 24px;
+    border-radius: 8px;
+    background: #F9D5DF;
+    text-align: center;
+    transform: rotate(4deg);
+    box-shadow: 0 18px 34px rgba(93, 58, 102, 0.14);
+}
+
+.memories-hero-note::before,
+.map-sticker::before {
+    content: "";
+    position: absolute;
+    top: -13px;
+    left: 50%;
+    width: 78px;
+    height: 24px;
+    transform: translateX(-50%);
+    background: rgba(216, 91, 130, 0.32);
+}
+
+.memories-hero-note p,
+.map-sticker p {
+    margin: 0;
+    color: var(--rose-dark);
+    font-family: "Segoe Script", "Brush Script MT", cursive;
+    font-size: 1.05rem;
+    line-height: 1.45;
+}
+
+.memories-hero-note span,
+.map-sticker span {
+    display: block;
+    margin-top: 10px;
+    color: var(--pink-deep);
+    font-size: 1.4rem;
+}
+
+.memory-toolbar {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-bottom: 22px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+}
+
+.memory-toolbar a {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 13px 18px;
+    border-radius: 14px;
+    background: white;
+    border: 1px solid var(--border);
+    color: var(--ink);
+    font-weight: 950;
+}
+
+.memory-toolbar a:first-child {
+    background: linear-gradient(135deg, var(--pink-main), var(--pink-deep));
+    color: white;
+    border: 0;
+}
+
+.memory-toolbar a:hover {
+    transform: translateY(-2px);
+    text-decoration: none;
+}
+
+.memory-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    gap: 22px;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+}
+
+.scrapbook-memory-card {
+    position: relative;
+    min-height: 390px;
+    margin: 0;
+    padding: 20px;
+    border-radius: 26px;
+    background:
+        radial-gradient(circle at 20% 35%, rgba(255, 255, 255, 0.9), transparent 26%),
+        linear-gradient(145deg, rgba(255, 255, 255, 0.94), rgba(255, 247, 249, 0.9));
+    border: 1px solid var(--border);
+    box-shadow: 0 16px 34px rgba(93, 58, 102, 0.13);
+    overflow: hidden;
+}
+
+.memory-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.memory-label {
+    display: inline-flex;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background: var(--pink-main);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 950;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.memory-menu {
+    color: var(--pink-deep);
+    font-size: 1.35rem;
+    font-weight: 950;
+}
+
+.memory-photo-placeholder {
+    height: 130px;
+    margin: 18px 0;
+    display: grid;
+    place-items: center;
+    border-radius: 20px;
+    background:
+        radial-gradient(circle at 30% 40%, rgba(216, 91, 130, 0.22), transparent 28%),
+        linear-gradient(135deg, #FBE4EA, #E8D7F1);
+    color: var(--pink-deep);
+    font-size: 2.1rem;
+}
+
+.scrapbook-memory-card h3 {
+    margin: 0 0 12px;
+    color: var(--ink);
+    font-family: "Segoe Script", "Brush Script MT", cursive;
+    font-size: 1.55rem;
+    line-height: 1.1;
+}
+
+.scrapbook-memory-card h3 a {
+    color: var(--ink);
+}
+
+.memory-meta-list p {
+    margin: 0 0 6px;
+    color: var(--muted);
+    font-size: 0.92rem;
+    font-weight: 800;
+}
+
+.memory-friends-line {
+    margin: 14px 0 44px;
+    color: var(--muted);
+    font-size: 0.92rem;
+    font-weight: 700;
+}
+
+.open-memory-link {
+    position: absolute;
+    left: 20px;
+    bottom: 20px;
+}
+
+.empty-scrapbook {
+    padding: 34px;
+    text-align: center;
+    border-radius: 30px;
+    border: 1px dashed var(--border);
+    background: rgba(255, 255, 255, 0.78);
+    box-shadow: var(--shadow);
+}
+
+.empty-scrapbook h3 {
+    color: var(--plum);
+    font-size: 1.8rem;
+}
+
+/* Memory detail page */
+
+.memory-detail-layout {
+    display: grid;
+    grid-template-columns: 310px minmax(0, 1fr);
+    gap: 24px;
+    align-items: start;
+}
+
+.memory-detail-sidebar {
+    position: sticky;
+    top: 96px;
+    padding: 24px;
+    border-radius: 30px;
+    background:
+        radial-gradient(circle at top left, rgba(216, 91, 130, 0.2), transparent 28%),
+        linear-gradient(180deg, #241020, #130811);
+    color: white;
+    box-shadow: var(--shadow);
+}
+
+.back-link {
+    display: inline-flex;
+    margin-bottom: 22px;
+    color: #FFD3DF;
+}
+
+.memory-polaroid-large {
+    width: 100%;
+    min-height: 250px;
+    padding: 14px 14px 42px;
+    background: white;
+    transform: rotate(-3deg);
+    box-shadow: 0 18px 34px rgba(0, 0, 0, 0.24);
+}
+
+.memory-polaroid-large img {
+    width: 100%;
+    height: 230px;
+    object-fit: cover;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.memory-polaroid-empty {
+    height: 230px;
+    display: grid;
+    place-items: center;
+    background:
+        radial-gradient(circle at 30% 40%, rgba(216, 91, 130, 0.24), transparent 30%),
+        linear-gradient(135deg, #FBE4EA, #E8D7F1);
+    color: var(--rose-dark);
+}
+
+.memory-polaroid-empty span {
+    font-size: 2.2rem;
+}
+
+.memory-polaroid-empty p {
+    margin: 0;
+    font-weight: 900;
+}
+
+.memory-side-note {
+    position: relative;
+    margin: 34px auto 0;
+    max-width: 210px;
+    padding: 24px;
+    border-radius: 8px;
+    background: #FADCE5;
+    color: var(--rose-dark);
+    text-align: center;
+    transform: rotate(4deg);
+}
+
+.memory-side-note::before {
+    content: "";
+    position: absolute;
+    top: -13px;
+    left: 50%;
+    width: 76px;
+    height: 24px;
+    transform: translateX(-50%);
+    background: rgba(216, 91, 130, 0.34);
+}
+
+.memory-side-note p {
+    margin: 0;
+    font-family: "Segoe Script", "Brush Script MT", cursive;
+}
+
+.memory-detail-main {
+    min-width: 0;
+}
+
+.memory-detail-hero {
+    padding: 30px;
+    border-radius: 30px;
+    border: 1px solid var(--border);
+    background:
+        radial-gradient(circle at top right, rgba(216, 91, 130, 0.18), transparent 30%),
+        rgba(255, 255, 255, 0.84);
+    box-shadow: var(--shadow);
+    margin-bottom: 22px;
+}
+
+.memory-detail-hero h2 {
+    margin: 0 0 18px;
+    color: var(--ink);
+    font-family: "Segoe Script", "Brush Script MT", cursive;
+    font-size: clamp(2.8rem, 6vw, 5.2rem);
+    line-height: 1;
+    font-weight: 500;
+}
+
+.memory-detail-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.memory-detail-pills span {
+    padding: 9px 14px;
+    border-radius: 999px;
+    background: var(--pink-soft);
+    color: var(--rose-dark);
+    font-weight: 950;
+}
+
+.memory-detail-panel {
+    margin-bottom: 22px;
+    padding: 24px;
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.84);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+}
+
+.memory-detail-panel h3 {
+    margin: 0 0 18px;
+    color: var(--plum);
+    font-size: 1.45rem;
+}
+
+.memory-detail-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.memory-detail-grid article {
+    margin: 0;
+    padding: 16px;
+    min-height: 130px;
+    box-shadow: none;
+}
+
+.memory-detail-grid article:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+.memory-detail-grid span {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 1.4rem;
+}
+
+.memory-detail-grid strong {
+    display: block;
+    color: var(--ink);
+    margin-bottom: 6px;
+}
+
+.memory-detail-grid p {
+    margin: 0;
+    color: var(--muted);
+    font-weight: 700;
+}
+
+.soft-memory-panel {
+    background: rgba(253, 235, 242, 0.68);
+}
+
+.memory-description {
+    margin: 0;
+    color: var(--ink);
+    font-family: "Segoe Script", "Brush Script MT", cursive;
+    font-size: 1.15rem;
+}
+
+.memory-detail-bottom-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+}
+
+.memory-friend-list {
+    display: grid;
+    gap: 12px;
+}
+
+.memory-friend-list article {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 0;
+    padding: 14px;
+    border-radius: 18px;
+    box-shadow: none;
+}
+
+.memory-friend-list article:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+.memory-friend-avatar {
+    width: 54px;
+    height: 54px;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    flex: 0 0 54px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, var(--pink-main), var(--plum));
+    color: white;
+    font-weight: 950;
+    font-size: 1.3rem;
+}
+
+.memory-friend-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.memory-friend-list h4 {
+    margin: 0 0 4px;
+}
+
+.memory-friend-list p {
+    margin: 0;
+    color: var(--muted);
+}
+
+.memory-photo-gallery {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.memory-photo-gallery figure {
+    margin: 0;
+}
+
+.memory-photo-gallery img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border: 0;
+    border-radius: 14px;
+    box-shadow: none;
+}
+
+/* Memory map */
+
+.fake-map-panel {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+}
+
+.fake-map-background {
+    position: relative;
+    min-height: 260px;
+    border-radius: 30px;
+    border: 1px solid var(--border);
+    background:
+        linear-gradient(90deg, rgba(216, 91, 130, 0.08) 1px, transparent 1px),
+        linear-gradient(rgba(216, 91, 130, 0.08) 1px, transparent 1px),
+        radial-gradient(circle at 30% 40%, rgba(216, 91, 130, 0.20), transparent 22%),
+        radial-gradient(circle at 72% 45%, rgba(93, 58, 102, 0.16), transparent 20%),
+        #FFFDF8;
+    background-size: 44px 44px, 44px 44px, auto, auto, auto;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+
+.map-pin {
+    position: absolute;
+    font-size: 2rem;
+    filter: drop-shadow(0 8px 10px rgba(93, 58, 102, 0.2));
+}
+
+.pin-one {
+    left: 18%;
+    top: 28%;
+}
+
+.pin-two {
+    left: 46%;
+    top: 52%;
+}
+
+.pin-three {
+    left: 68%;
+    top: 30%;
+}
+
+.pin-four {
+    left: 82%;
+    top: 64%;
+}
+
+.map-memory-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+    gap: 18px;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+}
+
+.map-memory-card {
+    display: grid;
+    grid-template-columns: 58px minmax(0, 1fr);
+    gap: 16px;
+    margin: 0;
+    padding: 20px;
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.84);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+}
+
+.map-memory-pin {
+    width: 58px;
+    height: 58px;
+    display: grid;
+    place-items: center;
+    border-radius: 20px;
+    background: var(--pink-soft);
+    font-size: 1.7rem;
+}
+
+.map-memory-card h3 {
+    margin: 0 0 8px;
+    color: var(--ink);
+    font-family: "Segoe Script", "Brush Script MT", cursive;
+    font-size: 1.45rem;
+}
+
+.map-location {
+    margin: 0 0 5px;
+    color: var(--pink-deep);
+    font-weight: 950;
+}
+
+.map-coordinates,
+.map-friends {
+    margin: 0 0 5px;
+    color: var(--muted);
+    font-size: 0.92rem;
+    font-weight: 700;
+}
+
+@media (max-width: 1050px) {
+    .memory-detail-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .memory-detail-sidebar {
+        position: static;
+    }
+
+    .memory-detail-grid,
+    .memory-detail-bottom-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .memories-hero,
+    .map-hero {
+        grid-template-columns: 1fr;
+    }
+
+    .memories-hero-note,
+    .map-sticker {
+        display: none;
+    }
+}
+
+@media (max-width: 650px) {
+    .memory-toolbar {
+        flex-direction: column;
+    }
+
+    .memory-detail-grid,
+    .memory-photo-gallery,
+    .map-memory-list {
+        grid-template-columns: 1fr;
+    }
+
+    .map-memory-card {
+        grid-template-columns: 1fr;
+    }
+}
