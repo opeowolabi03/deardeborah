@@ -32,9 +32,16 @@
             </div>
 
             <div>
-                <span>♊ Zodiac</span>
+                <span>✨ Zodiac</span>
                 <strong>{{ friend.zodiac|default:"Not added" }}</strong>
             </div>
+
+            {% if extended_profile and extended_profile.zodiac_moon %}
+                <div>
+                    <span>🌙 Zodiac Moon</span>
+                    <strong>{{ extended_profile.zodiac_moon }}</strong>
+                </div>
+            {% endif %}
 
             <div>
                 <span>🧠 MBTI</span>
@@ -179,9 +186,17 @@
 
                 <div class="about-row">
                     <span>✨</span>
-                    <strong>Zodiac</strong>
+                    <strong>Zodiac Sun</strong>
                     <p>{{ friend.zodiac|default:"Not added" }}</p>
                 </div>
+
+                {% if extended_profile %}
+                    <div class="about-row">
+                        <span>🌙</span>
+                        <strong>Zodiac Moon</strong>
+                        <p>{{ extended_profile.zodiac_moon|default:"Not added" }}</p>
+                    </div>
+                {% endif %}
 
                 <div class="about-row">
                     <span>♡</span>
@@ -199,6 +214,12 @@
                     <span>🍽️</span>
                     <strong>Favourite Food</strong>
                     <p>{{ friend.favourite_food|default:"Not added" }}</p>
+                </div>
+
+                <div class="about-row">
+                    <span>🍴</span>
+                    <strong>Favourite Restaurant</strong>
+                    <p>{{ friend.favourite_restaurant|default:"Not added" }}</p>
                 </div>
 
                 <div class="about-row">
@@ -245,9 +266,93 @@
                     </article>
 
                     <article>
+                        <span>🌙</span>
+                        <strong>Zodiac Moon</strong>
+                        <p>{{ extended_profile.zodiac_moon|default:"Not added" }}</p>
+                    </article>
+
+                    <article>
+                        <span>🏰</span>
+                        <strong>Hogwarts House</strong>
+                        <p>{{ extended_profile.hogwarts_house|default:"Not added" }}</p>
+                    </article>
+
+                    <article>
+                        <span>🕯️</span>
+                        <strong>Scent Family</strong>
+                        <p>{{ extended_profile.scent_family|default:"Not added" }}</p>
+                    </article>
+
+                    <article>
+                        <span>💎</span>
+                        <strong>Favourite Designer</strong>
+                        <p>{{ extended_profile.favourite_designer|default:"Not added" }}</p>
+                    </article>
+
+                    <article>
+                        <span>👟</span>
+                        <strong>Shoe Brand</strong>
+                        <p>{{ extended_profile.shoe_brand|default:"Not added" }}</p>
+                    </article>
+
+                    <article>
+                        <span>👠</span>
+                        <strong>Shoe Type</strong>
+                        <p>{{ extended_profile.shoe_type|default:"Not added" }}</p>
+                    </article>
+
+                    <article>
                         <span>✈️</span>
                         <strong>Dream Trip</strong>
                         <p>{{ extended_profile.dream_trip|default:"Not added" }}</p>
+                    </article>
+
+                    <article>
+                        <span>🗺️</span>
+                        <strong>Dream Destination</strong>
+                        <p>{{ extended_profile.dream_destination|default:"Not added" }}</p>
+                    </article>
+
+                    <article>
+                        <span>👻</span>
+                        <strong>Biggest Fear</strong>
+                        <p>{{ extended_profile.biggest_fear|default:"Not added" }}</p>
+                    </article>
+
+                    <article>
+                        <span>🍜</span>
+                        <strong>Comfort Food</strong>
+                        <p>{{ extended_profile.comfort_food|default:"Not added" }}</p>
+                    </article>
+
+                    <article>
+                        <span>💬</span>
+                        <strong>Love Language They Give</strong>
+                        <p>{{ extended_profile.love_language_to_other|default:"Not added" }}</p>
+                    </article>
+
+                    <article>
+                        <span>💗</span>
+                        <strong>Love Language They Receive</strong>
+                        <p>{{ extended_profile.love_language_for_you|default:"Not added" }}</p>
+                    </article>
+
+                    <article>
+                        <span>🫣</span>
+                        <strong>First Impression Of Me</strong>
+                        <p>{{ extended_profile.first_impression_of_me|default:"Not added" }}</p>
+                    </article>
+
+                    <article>
+                        <span>👑</span>
+                        <strong>Favourite Barbie Film</strong>
+                        <p>{{ extended_profile.favourite_barbie_film|default:"Not added" }}</p>
+                    </article>
+
+                    <article>
+                        <span>🏰</span>
+                        <strong>Favourite Disney Film</strong>
+                        <p>{{ extended_profile.favourite_disney_film|default:"Not added" }}</p>
                     </article>
 
                     <article>
@@ -269,9 +374,15 @@
                     </article>
 
                     <article>
-                        <span>💗</span>
+                        <span>💌</span>
                         <strong>Favourite Memory</strong>
                         <p>{{ extended_profile.favourite_memory|default:"Not added" }}</p>
+                    </article>
+
+                    <article>
+                        <span>🔒</span>
+                        <strong>Private Notes</strong>
+                        <p>{{ extended_profile.private_notes|default:"Not added" }}</p>
                     </article>
                 </div>
             {% else %}
@@ -329,6 +440,9 @@
                         {% for photo in photos %}
                             <figure>
                                 <img src="{{ photo.image.url }}" alt="{{ photo.caption|default:'Friend photo' }}">
+                                {% if photo.caption %}
+                                    <figcaption>{{ photo.caption }}</figcaption>
+                                {% endif %}
                             </figure>
                         {% endfor %}
                     </div>
