@@ -3,226 +3,344 @@
 {% block title %}{{ friend.display_name }} | Dear Deborah{% endblock %}
 
 {% block content %}
-<section class="profile-hero">
-    <div class="profile-photo-wrap">
-        {% if friend.profile_picture %}
-            <img src="{{ friend.profile_picture.url }}" alt="{{ friend.display_name }}">
-        {% else %}
-            <div class="profile-initial">{{ friend.first_name|first }}</div>
-        {% endif %}
-    </div>
-
-    <div class="profile-hero-text">
-        <p class="eyebrow">Friend profile</p>
-        <h2>{{ friend.display_name }}</h2>
-
-        {% if friend.connection_group %}
-            <p class="profile-subtitle">Connected through {{ friend.connection_group.name }}</p>
-        {% else %}
-            <p class="profile-subtitle">Connection group not added yet</p>
-        {% endif %}
-
-        <div class="profile-pills">
-            <span>{{ friend.get_tier_display }}</span>
-
-            {% if friend.mbti %}
-                <span>{{ friend.mbti }}</span>
-            {% endif %}
-
-            {% if friend.zodiac %}
-                <span>{{ friend.zodiac }}</span>
+<div class="profile-mockup-layout">
+    <aside class="profile-sidebar-dark">
+        <div class="sidebar-profile-photo">
+            {% if friend.profile_picture %}
+                <img src="{{ friend.profile_picture.url }}" alt="{{ friend.display_name }}">
+            {% else %}
+                <div class="sidebar-profile-initial">{{ friend.first_name|first }}</div>
             {% endif %}
         </div>
-    </div>
-</section>
 
-<div class="profile-grid">
-    <section class="profile-panel">
-        <h3>Basic Details</h3>
+        <h2>{{ friend.display_name }}</h2>
 
-        <dl class="detail-list">
+        <span class="sidebar-tier-pill">{{ friend.get_tier_display }} ★</span>
+
+        <p class="sidebar-quote">
+            “A saved person in the archive, because apparently even friendship needs documentation.”
+        </p>
+
+        <div class="sidebar-detail-list">
             <div>
-                <dt>Birthday</dt>
+                <span>🎂 Birthday</span>
                 {% if friend.birthday %}
-                    <dd>{{ friend.birthday|date:"d M Y" }}</dd>
+                    <strong>{{ friend.birthday|date:"d M Y" }}</strong>
                 {% else %}
-                    <dd>Not added</dd>
+                    <strong>Not added</strong>
                 {% endif %}
             </div>
 
             <div>
-                <dt>Age</dt>
-                <dd>{{ friend.age|default:"Not added" }}</dd>
+                <span>♊ Zodiac</span>
+                <strong>{{ friend.zodiac|default:"Not added" }}</strong>
             </div>
 
             <div>
-                <dt>Days until birthday</dt>
-                <dd>{{ friend.days_until_birthday|default:"Not added" }}</dd>
+                <span>🧠 MBTI</span>
+                <strong>{{ friend.mbti|default:"Not added" }}</strong>
             </div>
 
             <div>
-                <dt>Favourite colour</dt>
-                <dd>{{ friend.favourite_colour|default:"Not added" }}</dd>
+                <span>💌 How we met</span>
+                <strong>{{ friend.how_we_met|default:"Not added" }}</strong>
             </div>
 
             <div>
-                <dt>Favourite food</dt>
-                <dd>{{ friend.favourite_food|default:"Not added" }}</dd>
+                <span>🔗 Connection</span>
+                {% if friend.connection_group %}
+                    <strong>{{ friend.connection_group.name }}</strong>
+                {% else %}
+                    <strong>Not added</strong>
+                {% endif %}
             </div>
-
-            <div>
-                <dt>Favourite restaurant</dt>
-                <dd>{{ friend.favourite_restaurant|default:"Not added" }}</dd>
-            </div>
-
-            <div>
-                <dt>Favourite drink</dt>
-                <dd>{{ friend.favourite_alcoholic_drink|default:"Not added" }}</dd>
-            </div>
-
-            <div>
-                <dt>Favourite season</dt>
-                <dd>{{ friend.favourite_season|default:"Not added" }}</dd>
-            </div>
-
-            <div>
-                <dt>Morning or night</dt>
-                <dd>{{ friend.get_morning_or_night_display|default:"Not added" }}</dd>
-            </div>
-
-            <div>
-                <dt>Sports team</dt>
-                <dd>{{ friend.sports_team|default:"Not added" }}</dd>
-            </div>
-        </dl>
-    </section>
-
-    <section class="profile-panel">
-        <h3>Friendship Notes</h3>
-
-        <div class="note-block">
-            <h4>How You Met</h4>
-            <p>{{ friend.how_we_met|default:"Not added" }}</p>
         </div>
 
-        <div class="note-block">
-            <h4>Hobbies</h4>
-            <p>{{ friend.hobbies|default:"Not added" }}</p>
+        <div class="sidebar-note-card">
+            <h3>Quick Note ♡</h3>
+            <p>{{ friend.notes|default:"No notes added yet." }}</p>
         </div>
+    </aside>
 
-        <div class="note-block">
-            <h4>Notes</h4>
-            <p>{{ friend.notes|default:"Not added" }}</p>
-        </div>
-    </section>
-</div>
+    <section class="profile-main-mockup">
+        <div class="profile-top-actions">
+            <a href="{% url 'friends:friend_directory' %}">← Back to directory</a>
 
-<section class="profile-panel">
-    <h3>Extended Profile</h3>
-
-    {% if extended_profile %}
-        <div class="extended-grid">
-            <article>
-                <span>🎵</span>
-                <h4>Favourite song</h4>
-                <p>{{ extended_profile.favourite_song|default:"Not added" }}</p>
-            </article>
-
-            <article>
-                <span>🎬</span>
-                <h4>Favourite movie</h4>
-                <p>{{ extended_profile.favourite_movie|default:"Not added" }}</p>
-            </article>
-
-            <article>
-                <span>📺</span>
-                <h4>Favourite show</h4>
-                <p>{{ extended_profile.favourite_show|default:"Not added" }}</p>
-            </article>
-
-            <article>
-                <span>✈️</span>
-                <h4>Dream trip</h4>
-                <p>{{ extended_profile.dream_trip|default:"Not added" }}</p>
-            </article>
-
-            <article>
-                <span>🎁</span>
-                <h4>Gift ideas</h4>
-                <p>{{ extended_profile.gift_ideas|default:"Not added" }}</p>
-            </article>
-
-            <article>
-                <span>😂</span>
-                <h4>Inside jokes</h4>
-                <p>{{ extended_profile.inside_jokes|default:"Not added" }}</p>
-            </article>
-
-            <article>
-                <span>📖</span>
-                <h4>Friendship story</h4>
-                <p>{{ extended_profile.friendship_story|default:"Not added" }}</p>
-            </article>
-
-            <article>
-                <span>💌</span>
-                <h4>Favourite memory</h4>
-                <p>{{ extended_profile.favourite_memory|default:"Not added" }}</p>
-            </article>
-        </div>
-    {% else %}
-        <p class="empty-state">No extended profile added yet. Add it in Admin when you’re ready to become a friendship archivist, apparently.</p>
-    {% endif %}
-</section>
-
-<div class="profile-grid">
-    <section class="profile-panel">
-        <div class="panel-heading">
             <div>
-                <p class="eyebrow">Linked stories</p>
-                <h3>Memories</h3>
+                <a href="/admin/friends/friend/{{ friend.id }}/change/">Edit Profile</a>
+                <a href="/admin/friends/memory/add/">Add Memory</a>
             </div>
-            <a href="{% url 'friends:memories' %}">All memories →</a>
         </div>
 
-        {% if memories %}
-            <div class="profile-memory-list">
-                {% for memory in memories %}
+        <section class="profile-main-hero">
+            <div>
+                <p class="handwriting-label">Friend profile ♡</p>
+                <h2>{{ friend.display_name }}</h2>
+
+                <div class="profile-mockup-pills">
+                    <span>{{ friend.get_tier_display }}</span>
+
+                    {% if friend.mbti %}
+                        <span>{{ friend.mbti }}</span>
+                    {% endif %}
+
+                    {% if friend.zodiac %}
+                        <span>{{ friend.zodiac }}</span>
+                    {% endif %}
+
+                    {% if friend.connection_group %}
+                        <span>{{ friend.connection_group.name }}</span>
+                    {% endif %}
+                </div>
+
+                <div class="profile-fact-row">
                     <article>
-                        <h4>
-                            <a href="{{ memory.get_absolute_url }}">{{ memory.title }}</a>
-                        </h4>
-
-                        {% if memory.location_name %}
-                            <p>{{ memory.location_name }}</p>
+                        <span>🎂</span>
+                        <small>Birthday</small>
+                        {% if friend.birthday %}
+                            <strong>{{ friend.birthday|date:"d M Y" }}</strong>
                         {% else %}
-                            <p>No location added</p>
+                            <strong>Not added</strong>
                         {% endif %}
                     </article>
-                {% endfor %}
-            </div>
-        {% else %}
-            <p class="empty-state">No memories linked yet.</p>
-        {% endif %}
-    </section>
 
-    <section class="profile-panel">
-        <h3>Photos</h3>
-
-        {% if photos %}
-            <div class="profile-photo-grid">
-                {% for photo in photos %}
-                    <figure>
-                        <img src="{{ photo.image.url }}" alt="{{ photo.caption|default:'Friend photo' }}">
-                        {% if photo.caption %}
-                            <figcaption>{{ photo.caption }}</figcaption>
+                    <article>
+                        <span>📍</span>
+                        <small>From</small>
+                        {% if friend.connection_group %}
+                            <strong>{{ friend.connection_group.name }}</strong>
+                        {% else %}
+                            <strong>Not added</strong>
                         {% endif %}
-                    </figure>
-                {% endfor %}
+                    </article>
+
+                    <article>
+                        <span>🎈</span>
+                        <small>Age</small>
+                        <strong>{{ friend.age|default:"Not added" }}</strong>
+                    </article>
+
+                    <article>
+                        <span>⏳</span>
+                        <small>Next birthday</small>
+                        {% if friend.days_until_birthday == 0 %}
+                            <strong>Today!</strong>
+                        {% else %}
+                            <strong>{{ friend.days_until_birthday|default:"Not added" }} days</strong>
+                        {% endif %}
+                    </article>
+                </div>
             </div>
-        {% else %}
-            <p class="empty-state">No photos linked yet.</p>
-        {% endif %}
+
+            <div class="profile-polaroid-area">
+                <div class="profile-polaroid">
+                    {% if friend.profile_picture %}
+                        <img src="{{ friend.profile_picture.url }}" alt="{{ friend.display_name }}">
+                    {% else %}
+                        <div class="fake-polaroid-photo">{{ friend.first_name|first }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="profile-sticky-note">
+                    <p>Good friends<br>make the best<br>memories ♡</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="profile-tabs-fake">
+            <a class="active" href="#about">About</a>
+            <a href="#extended">Extended Info</a>
+            <a href="#memories">Memories</a>
+            <a href="#photos">Photos</a>
+            <a href="#notes">Notes</a>
+        </section>
+
+        <section id="about" class="profile-mockup-panel">
+            <h3>About {{ friend.first_name }} ♡</h3>
+
+            <div class="about-grid">
+                <div class="about-row">
+                    <span>💌</span>
+                    <strong>How We Met</strong>
+                    <p>{{ friend.how_we_met|default:"Not added" }}</p>
+                </div>
+
+                <div class="about-row">
+                    <span>🎨</span>
+                    <strong>Favourite Colour</strong>
+                    <p>{{ friend.favourite_colour|default:"Not added" }}</p>
+                </div>
+
+                <div class="about-row">
+                    <span>🧠</span>
+                    <strong>MBTI</strong>
+                    <p>{{ friend.mbti|default:"Not added" }}</p>
+                </div>
+
+                <div class="about-row">
+                    <span>✨</span>
+                    <strong>Zodiac</strong>
+                    <p>{{ friend.zodiac|default:"Not added" }}</p>
+                </div>
+
+                <div class="about-row">
+                    <span>♡</span>
+                    <strong>Hobbies</strong>
+                    <p>{{ friend.hobbies|default:"Not added" }}</p>
+                </div>
+
+                <div class="about-row">
+                    <span>⚽</span>
+                    <strong>Sports Team</strong>
+                    <p>{{ friend.sports_team|default:"Not added" }}</p>
+                </div>
+
+                <div class="about-row">
+                    <span>🍽️</span>
+                    <strong>Favourite Food</strong>
+                    <p>{{ friend.favourite_food|default:"Not added" }}</p>
+                </div>
+
+                <div class="about-row">
+                    <span>🥂</span>
+                    <strong>Favourite Drink</strong>
+                    <p>{{ friend.favourite_alcoholic_drink|default:"Not added" }}</p>
+                </div>
+
+                <div class="about-row">
+                    <span>🍂</span>
+                    <strong>Season</strong>
+                    <p>{{ friend.favourite_season|default:"Not added" }}</p>
+                </div>
+
+                <div class="about-row">
+                    <span>🌙</span>
+                    <strong>Morning or Night</strong>
+                    <p>{{ friend.get_morning_or_night_display|default:"Not added" }}</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="extended" class="profile-mockup-panel soft-panel">
+            <h3>Extended Info ☆</h3>
+
+            {% if extended_profile %}
+                <div class="extended-mockup-grid">
+                    <article>
+                        <span>🎵</span>
+                        <strong>Favourite Song</strong>
+                        <p>{{ extended_profile.favourite_song|default:"Not added" }}</p>
+                    </article>
+
+                    <article>
+                        <span>🎬</span>
+                        <strong>Favourite Movie</strong>
+                        <p>{{ extended_profile.favourite_movie|default:"Not added" }}</p>
+                    </article>
+
+                    <article>
+                        <span>📺</span>
+                        <strong>Favourite Show</strong>
+                        <p>{{ extended_profile.favourite_show|default:"Not added" }}</p>
+                    </article>
+
+                    <article>
+                        <span>✈️</span>
+                        <strong>Dream Trip</strong>
+                        <p>{{ extended_profile.dream_trip|default:"Not added" }}</p>
+                    </article>
+
+                    <article>
+                        <span>🎁</span>
+                        <strong>Gift Ideas</strong>
+                        <p>{{ extended_profile.gift_ideas|default:"Not added" }}</p>
+                    </article>
+
+                    <article>
+                        <span>😂</span>
+                        <strong>Inside Jokes</strong>
+                        <p>{{ extended_profile.inside_jokes|default:"Not added" }}</p>
+                    </article>
+
+                    <article>
+                        <span>📖</span>
+                        <strong>Friendship Story</strong>
+                        <p>{{ extended_profile.friendship_story|default:"Not added" }}</p>
+                    </article>
+
+                    <article>
+                        <span>💗</span>
+                        <strong>Favourite Memory</strong>
+                        <p>{{ extended_profile.favourite_memory|default:"Not added" }}</p>
+                    </article>
+                </div>
+            {% else %}
+                <p class="empty-state">No extended profile added yet.</p>
+            {% endif %}
+        </section>
+
+        <div class="profile-bottom-grid">
+            <section id="memories" class="profile-mockup-panel">
+                <div class="panel-heading">
+                    <div>
+                        <p class="eyebrow">Recent stories</p>
+                        <h3>Recent Memories ♡</h3>
+                    </div>
+                    <a href="{% url 'friends:memories' %}">View all memories →</a>
+                </div>
+
+                {% if memories %}
+                    <div class="recent-memory-list">
+                        {% for memory in memories %}
+                            <article>
+                                <div class="memory-thumb">📷</div>
+
+                                <div>
+                                    <h4>
+                                        <a href="{{ memory.get_absolute_url }}">{{ memory.title }}</a>
+                                    </h4>
+
+                                    {% if memory.date %}
+                                        <p>{{ memory.date|date:"d M Y" }}</p>
+                                    {% else %}
+                                        <p>Date not added</p>
+                                    {% endif %}
+                                </div>
+
+                                <span>♡</span>
+                            </article>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p class="empty-state">No memories linked yet.</p>
+                {% endif %}
+            </section>
+
+            <section id="photos" class="profile-mockup-panel">
+                <div class="panel-heading">
+                    <div>
+                        <p class="eyebrow">Gallery</p>
+                        <h3>Photo Gallery ♡</h3>
+                    </div>
+                </div>
+
+                {% if photos %}
+                    <div class="gallery-mockup-grid">
+                        {% for photo in photos %}
+                            <figure>
+                                <img src="{{ photo.image.url }}" alt="{{ photo.caption|default:'Friend photo' }}">
+                            </figure>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p class="empty-state">No photos linked yet.</p>
+                {% endif %}
+            </section>
+        </div>
+
+        <section id="notes" class="profile-footer-strip">
+            <p>Friends are the family we choose for ourselves. ♡</p>
+        </section>
     </section>
 </div>
 {% endblock %}
