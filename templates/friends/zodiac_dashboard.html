@@ -3,17 +3,140 @@
 {% block title %}Zodiac Dashboard | Dear Deborah{% endblock %}
 
 {% block content %}
-<h2>Zodiac Dashboard</h2>
+<div class="analytics-layout">
+    <aside class="analytics-sidebar">
+        <div class="paper-note">
+            <p>The stars may be distant,<br>but our friendship is written<br>in all of them.</p>
+            <span>♡</span>
+        </div>
 
-<p>Most common sign: {{ most_common }}</p>
+        <h3>Stats Dashboards</h3>
 
-{% if zodiac_counts %}
-    <ul>
-        {% for row in zodiac_counts %}
-            <li>{{ row.zodiac }}: {{ row.total }}</li>
-        {% endfor %}
-    </ul>
-{% else %}
-    <p>No zodiac data added yet.</p>
-{% endif %}
+        <nav class="analytics-nav">
+            <a href="{% url 'friends:statistics' %}">▣ Overview</a>
+            <a href="{% url 'friends:statistics' %}#colours">✧ Favourite Colours</a>
+            <a href="{% url 'friends:mbti_dashboard' %}">❖ MBTI Dashboard</a>
+            <a class="active" href="{% url 'friends:zodiac_dashboard' %}">✦ Zodiac Dashboard</a>
+            <a href="{% url 'friends:statistics' %}#seasons">☼ Favourite Seasons</a>
+            <a href="{% url 'friends:statistics' %}#morning-night">☾ Morning vs Night</a>
+        </nav>
+
+        <div class="analytics-facts">
+            <h4>Zodiac Quick Facts</h4>
+            <p><span>Most Common</span><strong>{{ most_common }}</strong></p>
+            <p><span>Signs Saved</span><strong>{{ zodiac_counts|length }}</strong></p>
+            <p><span>Your Sign</span><strong>Aries</strong></p>
+        </div>
+
+        <div class="sidebar-polaroid-fake">
+            <div></div>
+            <p>Different signs,<br>same friendship energy.</p>
+        </div>
+    </aside>
+
+    <section class="analytics-main">
+        <div class="analytics-title-row">
+            <div>
+                <h2>Zodiac Dashboard ♡</h2>
+                <p>The signs, the stars, and the friends who make life brighter.</p>
+            </div>
+
+            <div class="mock-filter-pill">All Friends⌄</div>
+        </div>
+
+        <div class="analytics-grid zodiac-grid-fixed">
+            <section class="analytics-panel wide-panel">
+                <h3>Zodiac Sign Distribution</h3>
+
+                {% if zodiac_counts %}
+                    <div class="zodiac-distribution-layout">
+                        <div class="fake-donut-chart">
+                            <strong>{{ zodiac_counts.0.total }}</strong>
+                            <span>Top Count</span>
+                        </div>
+
+                        <div class="compact-stat-list">
+                            {% for row in zodiac_counts %}
+                                <p>
+                                    <span>{{ row.zodiac }}</span>
+                                    <strong>{{ row.total }}</strong>
+                                </p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% else %}
+                    <p class="empty-state">No zodiac data added yet.</p>
+                {% endif %}
+            </section>
+
+            <section class="analytics-panel">
+                <h3>Element Balance</h3>
+
+                <div class="element-grid-fixed">
+                    <article><span>🔥</span><strong>Fire</strong><p>Energy</p></article>
+                    <article><span>🌿</span><strong>Earth</strong><p>Grounding</p></article>
+                    <article><span>💨</span><strong>Air</strong><p>Ideas</p></article>
+                    <article><span>💧</span><strong>Water</strong><p>Feeling</p></article>
+                </div>
+            </section>
+
+            <section class="analytics-panel">
+                <h3>Most Common Sign</h3>
+                <div class="sign-bubble">♈</div>
+                <h4>{{ most_common }}</h4>
+                <p class="center-text">The sign appearing most in your friendship archive.</p>
+            </section>
+
+            <section class="analytics-panel wide-panel">
+                <h3>Zodiac Compatibility Matrix</h3>
+
+                <div class="small-matrix">
+                    {% for row in zodiac_counts %}
+                        <span>♡</span><span>●</span><span>♡</span><span>●</span><span>♡</span><span>●</span>
+                    {% empty %}
+                        <p>No signs added yet.</p>
+                    {% endfor %}
+                </div>
+
+                <p class="matrix-key">♡ Best match &nbsp; ● Good match</p>
+            </section>
+
+            <section class="analytics-panel your-type-panel">
+                <h3>Your Sign</h3>
+                <div class="sign-bubble">♈</div>
+                <h4>Aries</h4>
+
+                <div class="trait-grid">
+                    <span>Bold</span>
+                    <span>Driven</span>
+                    <span>Direct</span>
+                    <span>Passionate</span>
+                    <span>Brave</span>
+                    <span>Independent</span>
+                </div>
+            </section>
+
+            <section class="analytics-panel">
+                <h3>Signs In Our Group</h3>
+
+                {% if zodiac_counts %}
+                    <div class="compact-stat-list">
+                        {% for row in zodiac_counts %}
+                            <p>
+                                <span>{{ row.zodiac }}</span>
+                                <strong>{{ row.total }} friend{{ row.total|pluralize }}</strong>
+                            </p>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p class="empty-state">No signs in group yet.</p>
+                {% endif %}
+            </section>
+        </div>
+
+        <div class="analytics-footer-note">
+            <p>Written in the stars. Proven by memories. Loved by us. ✨ ♡</p>
+        </div>
+    </section>
+</div>
 {% endblock %}

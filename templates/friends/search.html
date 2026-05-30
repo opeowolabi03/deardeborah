@@ -3,46 +3,110 @@
 {% block title %}Search | Dear Deborah{% endblock %}
 
 {% block content %}
-<h2>Search</h2>
+<section class="search-hero x-hero">
+    <div>
+        <p class="handwriting-label">Find anything fast ♡</p>
+        <h2>Search</h2>
+        <p>
+            Search by name, colour, MBTI, zodiac, hobby, food, school, work, memory,
+            or whatever tiny detail your brain has decided is suddenly urgent.
+        </p>
+    </div>
 
-<form method="get">
-    {{ form.as_p }}
-    <button type="submit">Search</button>
-</form>
+    <div class="x-sticky-note search-note">
+        <p>search the<br>archive</p>
+        <span>🔎</span>
+    </div>
+</section>
+
+<section class="search-panel">
+    <form method="get" class="search-form-large">
+        <label for="{{ form.query.id_for_label }}">Search the friendship archive</label>
+        {{ form.query }}
+        <button type="submit">Search</button>
+    </form>
+</section>
 
 {% if query %}
-    <h3>Friend Results</h3>
+    <section class="search-results-layout">
+        <article class="search-results-panel">
+            <div class="panel-heading">
+                <div>
+                    <p class="eyebrow">People</p>
+                    <h3>Friend Results</h3>
+                </div>
+            </div>
 
-    {% if friend_results %}
-        <ul>
-            {% for friend in friend_results %}
-                <li>
-                    <a href="{{ friend.get_absolute_url }}">{{ friend.display_name }}</a>
-                    - {{ friend.get_tier_display }}
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No friend results.</p>
-    {% endif %}
+            {% if friend_results %}
+                <div class="search-result-list">
+                    {% for friend in friend_results %}
+                        <a href="{{ friend.get_absolute_url }}" class="search-result-card">
+                            <div class="search-avatar">
+                                {% if friend.profile_picture %}
+                                    <img src="{{ friend.profile_picture.url }}" alt="{{ friend.display_name }}">
+                                {% else %}
+                                    <span>{{ friend.first_name|first }}</span>
+                                {% endif %}
+                            </div>
 
-    <h3>Memory Results</h3>
+                            <div>
+                                <h4>{{ friend.display_name }}</h4>
+                                <p>{{ friend.get_tier_display }}</p>
+                            </div>
+                        </a>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p class="empty-state">No friend results.</p>
+            {% endif %}
+        </article>
 
-    {% if memory_results %}
-        <ul>
-            {% for memory in memory_results %}
-                <li>
-                    <a href="{{ memory.get_absolute_url }}">{{ memory.title }}</a>
-                    {% if memory.location_name %}
-                        - {{ memory.location_name }}
-                    {% endif %}
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No memory results.</p>
-    {% endif %}
+        <article class="search-results-panel">
+            <div class="panel-heading">
+                <div>
+                    <p class="eyebrow">Stories</p>
+                    <h3>Memory Results</h3>
+                </div>
+            </div>
+
+            {% if memory_results %}
+                <div class="search-result-list">
+                    {% for memory in memory_results %}
+                        <a href="{{ memory.get_absolute_url }}" class="search-result-card">
+                            <div class="search-avatar memory-search-icon">
+                                <span>📷</span>
+                            </div>
+
+                            <div>
+                                <h4>{{ memory.title }}</h4>
+
+                                {% if memory.location_name %}
+                                    <p>{{ memory.location_name }}</p>
+                                {% else %}
+                                    <p>No location added</p>
+                                {% endif %}
+                            </div>
+                        </a>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p class="empty-state">No memory results.</p>
+            {% endif %}
+        </article>
+    </section>
 {% else %}
-    <p>Search by name, colour, MBTI, zodiac, hobby, food, school, work, or memory.</p>
+    <section class="search-suggestions">
+        <h3>Try searching for...</h3>
+
+        <div>
+            <span>Showcase</span>
+            <span>Pink</span>
+            <span>ENFP</span>
+            <span>Gemini</span>
+            <span>cinema</span>
+            <span>work</span>
+            <span>birthday</span>
+        </div>
+    </section>
 {% endif %}
 {% endblock %}

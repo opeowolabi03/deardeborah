@@ -3,17 +3,144 @@
 {% block title %}MBTI Dashboard | Dear Deborah{% endblock %}
 
 {% block content %}
-<h2>MBTI Dashboard</h2>
+<div class="analytics-layout">
+    <aside class="analytics-sidebar">
+        <div class="paper-note">
+            <p>Different minds,<br>stronger friendship.</p>
+            <span>☆</span>
+        </div>
 
-<p>Most common MBTI type: {{ most_common }}</p>
+        <h3>Statistics</h3>
 
-{% if mbti_counts %}
-    <ul>
-        {% for row in mbti_counts %}
-            <li>{{ row.mbti }}: {{ row.total }}</li>
-        {% endfor %}
-    </ul>
-{% else %}
-    <p>No MBTI data added yet.</p>
-{% endif %}
+        <nav class="analytics-nav">
+            <a href="{% url 'friends:statistics' %}">▣ Overview</a>
+            <a href="{% url 'friends:statistics' %}#colours">✧ Favourite Colours</a>
+            <a href="{% url 'friends:zodiac_dashboard' %}">✦ Zodiac Dashboard</a>
+            <a class="active" href="{% url 'friends:mbti_dashboard' %}">❖ MBTI Dashboard</a>
+            <a href="{% url 'friends:statistics' %}#seasons">☼ Favourite Seasons</a>
+            <a href="{% url 'friends:statistics' %}#morning-night">☾ Morning vs Night</a>
+        </nav>
+
+        <div class="analytics-facts">
+            <h4>Quick Facts</h4>
+            <p><span>Most Common</span><strong>{{ most_common }}</strong></p>
+            <p><span>Unique Types</span><strong>{{ mbti_counts|length }}</strong></p>
+            <p><span>Your Type</span><strong>ENFP</strong></p>
+        </div>
+
+        <div class="paper-note small-paper-note">
+            <p>You can’t spell<br>FRIENDS without<br>N, F, and chaos.</p>
+            <span>♡</span>
+        </div>
+    </aside>
+
+    <section class="analytics-main">
+        <div class="analytics-title-row">
+            <div>
+                <h2>MBTI Dashboard ♡</h2>
+                <p>Exploring the personalities that make your friendship circle unique.</p>
+            </div>
+
+            <div class="top-note">
+                <p>Understanding each other<br>makes every memory better.</p>
+            </div>
+        </div>
+
+        <section class="summary-card-row">
+            <article class="summary-card">
+                <span>👥</span>
+                <div>
+                    <h3>{{ mbti_counts|length }}</h3>
+                    <p>Unique Types</p>
+                </div>
+            </article>
+
+            <article class="summary-card">
+                <span>☆</span>
+                <div>
+                    <h3>{{ most_common }}</h3>
+                    <p>Most Common Type</p>
+                </div>
+            </article>
+
+            <article class="summary-card">
+                <span>♡</span>
+                <div>
+                    <h3>ENFP</h3>
+                    <p>Your MBTI Type</p>
+                </div>
+            </article>
+        </section>
+
+        <div class="analytics-grid">
+            <section class="analytics-panel wide-panel">
+                <h3>MBTI Type Distribution</h3>
+
+                {% if mbti_counts %}
+                    <div class="mini-bar-chart">
+                        {% for row in mbti_counts %}
+                            <div class="mini-bar-item">
+                                <strong>{{ row.total }}</strong>
+                                <div class="mini-bar-track">
+                                    <span style="height: {% widthratio row.total 10 100 %}%"></span>
+                                </div>
+                                <small>{{ row.mbti }}</small>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p class="empty-state">No MBTI data added yet.</p>
+                {% endif %}
+            </section>
+
+            <section class="analytics-panel side-panel">
+                <h3>Type List</h3>
+
+                {% if mbti_counts %}
+                    <div class="compact-stat-list">
+                        {% for row in mbti_counts %}
+                            <p>
+                                <span>{{ row.mbti }}</span>
+                                <strong>{{ row.total }}</strong>
+                            </p>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p class="empty-state">No MBTI data yet.</p>
+                {% endif %}
+            </section>
+
+            <section class="analytics-panel your-type-panel">
+                <h3>Your Type: ENFP</h3>
+                <div class="type-bubble">ENFP</div>
+                <h4>The Campaigner</h4>
+
+                <div class="trait-grid">
+                    <span>Creative</span>
+                    <span>Energetic</span>
+                    <span>Curious</span>
+                    <span>People-focused</span>
+                    <span>Expressive</span>
+                    <span>Idealistic</span>
+                </div>
+            </section>
+
+            <section class="analytics-panel">
+                <h3>Type Compatibility</h3>
+
+                <div class="compat-list">
+                    <p><span>INFJ</span><strong>95%</strong></p>
+                    <p><span>INTJ</span><strong>90%</strong></p>
+                    <p><span>ENFJ</span><strong>85%</strong></p>
+                    <p><span>INFP</span><strong>80%</strong></p>
+                    <p><span>ENTP</span><strong>75%</strong></p>
+                </div>
+            </section>
+        </div>
+
+        <div class="analytics-footer-note">
+            <p>Different personalities, same friendship energy. ♡</p>
+        </div>
+    </section>
+</div>
 {% endblock %}

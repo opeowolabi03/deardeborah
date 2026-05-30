@@ -3,43 +3,85 @@
 {% block title %}Birthday Calendar | Dear Deborah{% endblock %}
 
 {% block content %}
-<h2>Birthday Calendar</h2>
+<section class="birthday-hero x-hero">
+    <div>
+        <p class="handwriting-label">Never miss a birthday ♡</p>
+        <h2>Birthday Calendar</h2>
+        <p>
+            A soft little calendar for tracking birthdays, upcoming celebrations,
+            and who needs a message before you become a social criminal.
+        </p>
+    </div>
 
-<section>
-    <h3>Next Birthdays</h3>
+    <div class="x-sticky-note">
+        <p>birthdays<br>deserve<br>pink reminders</p>
+        <span>🎂</span>
+    </div>
+</section>
+
+<section class="birthday-next-panel">
+    <div class="panel-heading">
+        <div>
+            <p class="eyebrow">Coming soon</p>
+            <h3>Next Birthdays</h3>
+        </div>
+    </div>
 
     {% if upcoming_birthdays %}
-        <ul>
+        <div class="birthday-next-grid">
             {% for friend in upcoming_birthdays %}
-                <li>
-                    <a href="{{ friend.get_absolute_url }}">{{ friend.display_name }}</a>
-                    - {{ friend.days_until_birthday }} days away
-                </li>
+                <article class="birthday-next-card">
+                    <div class="birthday-date-badge">
+                        <strong>{{ friend.birthday|date:"d" }}</strong>
+                        <span>{{ friend.birthday|date:"M" }}</span>
+                    </div>
+
+                    <div>
+                        <h4>
+                            <a href="{{ friend.get_absolute_url }}">{{ friend.display_name }}</a>
+                        </h4>
+
+                        {% if friend.days_until_birthday == 0 %}
+                            <p>Birthday is today 🎂</p>
+                        {% else %}
+                            <p>{{ friend.days_until_birthday }} days away</p>
+                        {% endif %}
+                    </div>
+                </article>
             {% endfor %}
-        </ul>
+        </div>
     {% else %}
-        <p>No upcoming birthdays.</p>
+        <p class="empty-state">No upcoming birthdays yet.</p>
     {% endif %}
 </section>
 
-<section>
-    <h3>Birthdays By Month</h3>
+<section class="birthday-month-panel">
+    <div class="panel-heading">
+        <div>
+            <p class="eyebrow">All year</p>
+            <h3>Birthdays By Month</h3>
+        </div>
+    </div>
 
-    {% for month in months %}
-        <h4>{{ month.name }}</h4>
+    <div class="birthday-month-grid">
+        {% for month in months %}
+            <article class="birthday-month-card">
+                <h4>{{ month.name }}</h4>
 
-        {% if month.friends %}
-            <ul>
-                {% for friend in month.friends %}
-                    <li>
-                        {{ friend.birthday.day }}:
-                        <a href="{{ friend.get_absolute_url }}">{{ friend.display_name }}</a>
-                    </li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <p>No birthdays.</p>
-        {% endif %}
-    {% endfor %}
+                {% if month.friends %}
+                    <ul>
+                        {% for friend in month.friends %}
+                            <li>
+                                <span>{{ friend.birthday.day }}</span>
+                                <a href="{{ friend.get_absolute_url }}">{{ friend.display_name }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No birthdays.</p>
+                {% endif %}
+            </article>
+        {% endfor %}
+    </div>
 </section>
 {% endblock %}
