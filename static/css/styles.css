@@ -650,3 +650,757 @@ figcaption {
         flex-direction: column;
     }
 }
+
+/* Part V — Friend directory and profile styling */
+
+.page-hero {
+    background:
+        radial-gradient(circle at top right, rgba(243, 160, 168, 0.22), transparent 32%),
+        rgba(255, 255, 255, 0.82);
+}
+
+.compact-hero {
+    min-height: auto;
+}
+
+.compact-hero h2 {
+    margin-bottom: 12px;
+}
+
+.directory-filters {
+    padding: 0;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+}
+
+.filter-form {
+    display: grid;
+    grid-template-columns: minmax(240px, 1.4fr) minmax(180px, 0.7fr) minmax(220px, 0.9fr) auto;
+    align-items: end;
+    gap: 14px;
+    margin-bottom: 22px;
+}
+
+.filter-form,
+.filter-form:hover {
+    transform: none;
+}
+
+.filter-field label {
+    margin-bottom: 8px;
+}
+
+.filter-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.directory-panel {
+    background: rgba(255, 255, 255, 0.82);
+}
+
+.friend-card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.friend-card {
+    position: relative;
+    min-height: 260px;
+    padding: 20px;
+    margin: 0;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at top right, rgba(243, 160, 168, 0.22), transparent 32%),
+        var(--white);
+}
+
+.friend-card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.friend-avatar {
+    width: 78px;
+    height: 78px;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    border-radius: 28px;
+    background: linear-gradient(135deg, var(--pink-main), var(--plum));
+    color: white;
+    font-size: 2rem;
+    font-weight: 950;
+    box-shadow: var(--shadow);
+}
+
+.friend-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.tier-pill,
+.profile-pills span,
+.friend-tags span {
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+    border-radius: 999px;
+    padding: 7px 11px;
+    background: var(--pink-soft);
+    color: var(--pink-deep);
+    font-size: 0.78rem;
+    font-weight: 900;
+}
+
+.friend-card h3 {
+    color: var(--plum);
+    font-size: 1.3rem;
+    margin-bottom: 8px;
+}
+
+.friend-card h3 a {
+    color: var(--plum);
+}
+
+.friend-meta {
+    margin: 0 0 14px;
+    color: var(--muted);
+    font-weight: 700;
+}
+
+.friend-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 18px;
+}
+
+.profile-link {
+    position: absolute;
+    left: 20px;
+    bottom: 18px;
+}
+
+/* Friend profile */
+
+.profile-hero {
+    display: grid;
+    grid-template-columns: 220px minmax(0, 1fr);
+    align-items: center;
+    gap: 28px;
+    background:
+        radial-gradient(circle at top right, rgba(243, 160, 168, 0.28), transparent 36%),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(251, 228, 234, 0.72));
+}
+
+.profile-photo-wrap {
+    width: 210px;
+    height: 210px;
+    border-radius: 42px;
+    overflow: hidden;
+    padding: 8px;
+    background: white;
+    box-shadow: var(--shadow);
+}
+
+.profile-photo-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: 0;
+    border-radius: 34px;
+    box-shadow: none;
+}
+
+.profile-initial {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+    border-radius: 34px;
+    background: linear-gradient(135deg, var(--pink-main), var(--plum));
+    color: white;
+    font-size: 5rem;
+    font-weight: 950;
+}
+
+.profile-hero-text h2 {
+    margin-bottom: 10px;
+}
+
+.profile-subtitle {
+    color: var(--muted);
+    font-size: 1.05rem;
+    font-weight: 700;
+}
+
+.profile-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 18px;
+}
+
+.profile-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.profile-panel {
+    background: rgba(255, 255, 255, 0.82);
+}
+
+.profile-panel h3 {
+    color: var(--plum);
+    font-size: 1.6rem;
+    margin-bottom: 18px;
+}
+
+.detail-list {
+    display: grid;
+    gap: 12px;
+    margin: 0;
+}
+
+.detail-list div {
+    display: grid;
+    grid-template-columns: 170px minmax(0, 1fr);
+    gap: 12px;
+    padding: 13px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.detail-list dt {
+    color: var(--muted);
+    font-weight: 900;
+}
+
+.detail-list dd {
+    margin: 0;
+    font-weight: 700;
+}
+
+.note-block {
+    padding: 16px;
+    border-radius: 20px;
+    background: rgba(251, 228, 234, 0.42);
+    border: 1px solid var(--border);
+    margin-bottom: 14px;
+}
+
+.note-block h4 {
+    margin-top: 0;
+    color: var(--pink-deep);
+}
+
+.note-block p {
+    margin-bottom: 0;
+}
+
+.extended-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.extended-grid article {
+    min-height: 170px;
+    margin: 0;
+    padding: 18px;
+    box-shadow: none;
+}
+
+.extended-grid span {
+    display: inline-grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    margin-bottom: 10px;
+    border-radius: 16px;
+    background: var(--pink-soft);
+}
+
+.extended-grid h4 {
+    margin: 0 0 8px;
+    color: var(--plum);
+}
+
+.extended-grid p {
+    margin: 0;
+    color: var(--muted);
+}
+
+.profile-memory-list {
+    display: grid;
+    gap: 12px;
+}
+
+.profile-memory-list article {
+    margin: 0;
+    padding: 16px;
+    box-shadow: none;
+}
+
+.profile-memory-list h4 {
+    margin: 0 0 6px;
+}
+
+.profile-memory-list p {
+    margin: 0;
+    color: var(--muted);
+}
+
+.profile-photo-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.profile-photo-grid figure {
+    margin: 0;
+}
+
+.profile-photo-grid img {
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+}
+
+@media (max-width: 980px) {
+    .filter-form,
+    .friend-card-grid,
+    .profile-grid,
+    .extended-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .profile-hero {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .filter-form,
+    .friend-card-grid,
+    .profile-grid,
+    .extended-grid,
+    .profile-photo-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-photo-wrap {
+        width: 170px;
+        height: 170px;
+    }
+
+    .detail-list div {
+        grid-template-columns: 1fr;
+        gap: 4px;
+    }
+}
+
+/* Part V.2 — Friend Directory mockup layout */
+
+.directory-layout {
+    display: grid;
+    grid-template-columns: 290px minmax(0, 1fr);
+    gap: 28px;
+    align-items: start;
+}
+
+.directory-sidebar {
+    position: sticky;
+    top: 96px;
+}
+
+.sidebar-filter-form {
+    padding: 24px;
+    border-radius: 28px;
+    background: rgba(255, 255, 255, 0.86);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+}
+
+.sidebar-filter-form,
+.sidebar-filter-form:hover {
+    transform: none;
+}
+
+.sidebar-filter-form h3 {
+    margin: 0 0 22px;
+    color: var(--plum);
+    font-size: 1.35rem;
+}
+
+.sidebar-filter-form h4 {
+    margin: 0 0 12px;
+    color: var(--ink);
+    font-size: 0.82rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.sidebar-search {
+    margin-bottom: 22px;
+}
+
+.sidebar-search label {
+    display: none;
+}
+
+.sidebar-search input {
+    width: 100%;
+    max-width: none;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.92);
+}
+
+.sidebar-section {
+    margin-bottom: 24px;
+}
+
+.sidebar-section select {
+    width: 100%;
+    max-width: none;
+}
+
+.tier-filter-list {
+    display: grid;
+    gap: 9px;
+}
+
+.tier-filter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 11px 13px;
+    border-radius: 14px;
+    color: var(--ink);
+    background: rgba(255, 255, 255, 0.68);
+    border: 1px solid var(--border);
+    font-weight: 800;
+}
+
+.tier-filter:hover,
+.tier-filter.active {
+    background: var(--plum);
+    color: white;
+    text-decoration: none;
+}
+
+.wide-button,
+.wide-clear-button,
+.add-friend-sidebar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: none;
+    margin-top: 12px;
+    border-radius: 16px;
+    padding: 13px 16px;
+    font-weight: 900;
+}
+
+.wide-clear-button {
+    color: var(--pink-deep);
+    background: white;
+    border: 1px solid var(--border);
+}
+
+.wide-clear-button:hover {
+    background: var(--pink-soft);
+    text-decoration: none;
+}
+
+.add-friend-sidebar {
+    margin-top: 24px;
+    background: linear-gradient(135deg, var(--pink-main), var(--pink-deep));
+    color: white;
+    box-shadow: 0 12px 24px rgba(200, 95, 118, 0.24);
+}
+
+.add-friend-sidebar:hover {
+    color: white;
+    text-decoration: none;
+    transform: translateY(-2px);
+}
+
+.directory-main {
+    min-width: 0;
+}
+
+.directory-title-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 240px;
+    align-items: start;
+    gap: 24px;
+    margin-bottom: 26px;
+}
+
+.handwriting-label {
+    margin: 0 0 8px;
+    color: var(--pink-deep);
+    font-family: "Segoe Script", "Brush Script MT", cursive;
+    font-size: 1.25rem;
+}
+
+.directory-title-row h2 {
+    margin: 0 0 8px;
+    color: var(--plum);
+    font-size: clamp(3rem, 7vw, 5.3rem);
+    letter-spacing: -0.06em;
+}
+
+.directory-subtitle {
+    max-width: 650px;
+    margin: 0;
+    color: var(--muted);
+    font-weight: 700;
+}
+
+.pink-note-card {
+    position: relative;
+    min-height: 116px;
+    padding: 22px;
+    border-radius: 8px;
+    background: #F9D5DF;
+    box-shadow: 0 18px 34px rgba(93, 58, 102, 0.14);
+    transform: rotate(3deg);
+    text-align: center;
+}
+
+.pink-note-card::before {
+    content: "";
+    position: absolute;
+    width: 70px;
+    height: 22px;
+    top: -13px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(216, 91, 130, 0.28);
+}
+
+.pink-note-card p {
+    margin: 0;
+    color: var(--rose-dark);
+    font-family: "Segoe Script", "Brush Script MT", cursive;
+    font-size: 1rem;
+    line-height: 1.45;
+}
+
+.pink-note-card span {
+    display: block;
+    margin-top: 6px;
+    color: var(--pink-deep);
+    font-size: 1.2rem;
+}
+
+.directory-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    margin-bottom: 24px;
+}
+
+.quick-tier-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.quick-tier-buttons a,
+.directory-sort-fake {
+    min-width: 120px;
+    padding: 13px 22px;
+    border-radius: 14px;
+    color: var(--ink);
+    background: rgba(255, 255, 255, 0.82);
+    border: 1px solid var(--border);
+    text-align: center;
+    font-weight: 900;
+}
+
+.quick-tier-buttons a:hover,
+.quick-tier-buttons a.active {
+    color: white;
+    background: var(--plum);
+    text-decoration: none;
+}
+
+.directory-sort-fake {
+    min-width: 150px;
+    color: var(--plum);
+}
+
+.mockup-friend-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.mockup-friend-card {
+    position: relative;
+    min-height: 310px;
+    margin: 0;
+    padding: 22px;
+    border-radius: 24px;
+    background:
+        radial-gradient(circle at 18% 34%, rgba(255, 255, 255, 0.9), transparent 22%),
+        linear-gradient(145deg, rgba(255, 255, 255, 0.92), rgba(255, 247, 249, 0.88));
+    border: 1px solid var(--border);
+    box-shadow: 0 16px 34px rgba(93, 58, 102, 0.13);
+    overflow: hidden;
+}
+
+.mockup-friend-card::before {
+    content: "✧";
+    position: absolute;
+    left: 26px;
+    top: 88px;
+    color: var(--pink-main);
+    font-size: 1.4rem;
+}
+
+.card-menu-dots {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    color: var(--pink-deep);
+    font-size: 1.4rem;
+    font-weight: 900;
+}
+
+.mockup-tier-label {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 8px;
+    padding: 8px 12px;
+    background: var(--pink-main);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 900;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.mockup-avatar {
+    width: 116px;
+    height: 116px;
+    margin: 12px auto 18px;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--pink-main), var(--plum));
+    color: white;
+    font-size: 3rem;
+    font-weight: 950;
+    box-shadow: 0 12px 28px rgba(93, 58, 102, 0.18);
+}
+
+.mockup-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.mockup-friend-card h3 {
+    margin: 0 0 8px;
+    color: var(--ink);
+    font-family: "Segoe Script", "Brush Script MT", cursive;
+    font-size: 1.75rem;
+    font-weight: 600;
+}
+
+.mockup-friend-card h3 a {
+    color: var(--ink);
+}
+
+.mockup-connection {
+    margin: 0;
+    color: var(--muted);
+    font-weight: 800;
+}
+
+.mockup-card-bottom {
+    position: absolute;
+    left: 22px;
+    right: 22px;
+    bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    color: var(--pink-deep);
+    font-weight: 900;
+}
+
+.mockup-card-bottom a {
+    color: var(--pink-main);
+    font-size: 2rem;
+    line-height: 1;
+}
+
+.directory-count-note {
+    margin: 28px 0 0;
+    color: var(--muted);
+    text-align: right;
+    font-family: "Segoe Script", "Brush Script MT", cursive;
+    font-size: 1.05rem;
+}
+
+@media (max-width: 1100px) {
+    .directory-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .directory-sidebar {
+        position: static;
+    }
+
+    .mockup-friend-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .directory-title-row {
+        grid-template-columns: 1fr;
+    }
+
+    .pink-note-card {
+        display: none;
+    }
+}
+
+@media (max-width: 680px) {
+    .directory-toolbar {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .quick-tier-buttons a,
+    .directory-sort-fake {
+        width: 100%;
+    }
+
+    .mockup-friend-grid {
+        grid-template-columns: 1fr;
+    }
+}

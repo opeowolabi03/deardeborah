@@ -3,75 +3,150 @@
 {% block title %}Friend Directory | Dear Deborah{% endblock %}
 
 {% block content %}
-<h2>Friend Directory</h2>
+<div class="directory-layout">
+    <aside class="directory-sidebar">
+        <form method="get" class="sidebar-filter-form">
+            <h3>Filters ♡</h3>
 
-<form method="get">
-    <p>
-        <label for="q">Search:</label>
-        <input id="q" type="text" name="q" value="{{ query }}">
-    </p>
+            <div class="sidebar-search">
+                <label for="q">Search friends</label>
+                <input id="q" type="text" name="q" value="{{ query }}" placeholder="Search friends...">
+            </div>
 
-    <p>
-        <label for="tier">Tier:</label>
-        <select id="tier" name="tier">
-            <option value="">All tiers</option>
+            <div class="sidebar-section">
+                <h4>Friendship Tier</h4>
 
-            {% for value, label in tier_choices %}
-                <option value="{{ value }}" {% if selected_tier == value %}selected{% endif %}>
-                    {{ label }}
-                </option>
-            {% endfor %}
-        </select>
-    </p>
+                <div class="tier-filter-list">
+                    <a class="tier-filter {% if not selected_tier %}active{% endif %}" href="{% url 'friends:friend_directory' %}">
+                        <span>All Friends</span>
+                    </a>
 
-    <p>
-        <label for="connection_group">Connection group:</label>
-        <select id="connection_group" name="connection_group">
-            <option value="">All groups</option>
+                    {% for value, label in tier_choices %}
+                        <a class="tier-filter {% if selected_tier == value %}active{% endif %}" href="{% url 'friends:friend_directory' %}?tier={{ value }}">
+                            <span>{{ label }}</span>
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
 
-            {% for group in connection_groups %}
-                <option value="{{ group.id }}" {% if selected_connection_group == group.id|stringformat:"s" %}selected{% endif %}>
-                    {{ group.name }}
-                </option>
-            {% endfor %}
-        </select>
-    </p>
+            <div class="sidebar-section">
+                <h4>Connection Group</h4>
 
-    <button type="submit">Filter</button>
-    <a href="{% url 'friends:friend_directory' %}">Clear</a>
-</form>
+                <select id="connection_group" name="connection_group">
+                    <option value="">All connection groups</option>
 
-<h3>Results</h3>
+                    {% for group in connection_groups %}
+                        <option value="{{ group.id }}" {% if selected_connection_group == group.id|stringformat:"s" %}selected{% endif %}>
+                            {{ group.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
 
-{% if friends %}
-    <div>
-        {% for friend in friends %}
-            <article>
-                <h3>
-                    <a href="{{ friend.get_absolute_url }}">{{ friend.display_name }}</a>
-                </h3>
+            <div class="sidebar-section">
+                <h4>Tier dropdown</h4>
 
-                <p>Tier: {{ friend.get_tier_display }}</p>
+                <select id="tier" name="tier">
+                    <option value="">All tiers</option>
 
-                {% if friend.connection_group %}
-                    <p>Connection: {{ friend.connection_group.name }}</p>
-                {% else %}
-                    <p>Connection: Not added</p>
-                {% endif %}
+                    {% for value, label in tier_choices %}
+                        <option value="{{ value }}" {% if selected_tier == value %}selected{% endif %}>
+                            {{ label }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
 
-                {% if friend.mbti %}
-                    <p>MBTI: {{ friend.mbti }}</p>
-                {% endif %}
+            <button type="submit" class="wide-button">Apply Filters</button>
+            <a class="wide-clear-button" href="{% url 'friends:friend_directory' %}">Clear Filters</a>
 
-                {% if friend.zodiac %}
-                    <p>Zodiac: {{ friend.zodiac }}</p>
-                {% endif %}
-            </article>
+            <a class="add-friend-sidebar" href="{% url 'friends:add_friend' %}">
+                + Add New Friend
+            </a>
+        </form>
+    </aside>
 
-            <hr>
-        {% endfor %}
-    </div>
-{% else %}
-    <p>No friends found.</p>
-{% endif %}
+    <section class="directory-main">
+        <div class="directory-title-row">
+            <div>
+                <p class="handwriting-label">All the people who make life better ♡</p>
+                <h2>Friend Directory</h2>
+                <p class="directory-subtitle">
+                    Browse your saved friends, connection groups, favourite details, and little friendship notes.
+                </p>
+            </div>
+
+            <div class="pink-note-card">
+                <p>Good friends<br>are chosen family.</p>
+                <span>♡</span>
+            </div>
+        </div>
+
+        <div class="directory-toolbar">
+            <div class="quick-tier-buttons">
+                <a class="{% if not selected_tier %}active{% endif %}" href="{% url 'friends:friend_directory' %}">All</a>
+
+                {% for value, label in tier_choices %}
+                    <a class="{% if selected_tier == value %}active{% endif %}" href="{% url 'friends:friend_directory' %}?tier={{ value }}">
+                        {{ label }}
+                    </a>
+                {% endfor %}
+            </div>
+
+            <div class="directory-sort-fake">
+                <span>Sort: A - Z</span>
+            </div>
+        </div>
+
+        {% if friends %}
+            <div class="mockup-friend-grid">
+                {% for friend in friends %}
+                    <article class="mockup-friend-card">
+                        <div class="card-menu-dots">⋮</div>
+
+                        <span class="mockup-tier-label">
+                            {{ friend.get_tier_display }} ♡
+                        </span>
+
+                        <div class="mockup-avatar">
+                            {% if friend.profile_picture %}
+                                <img src="{{ friend.profile_picture.url }}" alt="{{ friend.display_name }}">
+                            {% else %}
+                                <span>{{ friend.first_name|first }}</span>
+                            {% endif %}
+                        </div>
+
+                        <h3>
+                            <a href="{{ friend.get_absolute_url }}">{{ friend.display_name }}</a>
+                        </h3>
+
+                        {% if friend.connection_group %}
+                            <p class="mockup-connection">{{ friend.connection_group.name }}</p>
+                        {% else %}
+                            <p class="mockup-connection">No connection group</p>
+                        {% endif %}
+
+                        <div class="mockup-card-bottom">
+                            {% if friend.birthday %}
+                                <span>🎂 {{ friend.birthday|date:"d M" }}</span>
+                            {% else %}
+                                <span>🎂 Birthday not added</span>
+                            {% endif %}
+
+                            <a href="{{ friend.get_absolute_url }}" aria-label="Open {{ friend.display_name }} profile">♡</a>
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="empty-state">
+                No friends found. The filters have either done their job or committed a tiny act of sabotage.
+            </p>
+        {% endif %}
+
+        <p class="directory-count-note">
+            Showing saved friends from your archive ♡
+        </p>
+    </section>
+</div>
 {% endblock %}
